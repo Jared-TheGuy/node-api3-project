@@ -8,8 +8,16 @@ const router = express.Router();
 const Users = require('./users-model');
 const Posts = require('../posts/posts-model')
 
-router.get('/', (req, res) => {
-
+router.get('/', async(req, res) => {
+  try {
+    const users = await Users.get();
+    res.json(users)
+  }
+  catch (err) {
+    res.status(500).json({
+      message: "You lose"
+    })
+  }
 });
 
 router.get('/:id', (req, res) => {
