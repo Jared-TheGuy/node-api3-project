@@ -3,22 +3,14 @@ const express = require('express');
 const server = express();
 const router = require('./users/users-router');
 
+const {logger} = require('./middleware/middleware');
+
 
 
 // remember express by default cannot parse JSON in request bodies
 server.use(express.json());
 
-//logger
-server.use((req, res, next) => {
-
-  console.log(
-    req.method,
-    req.url,
-    Date.now() 
-    );
-  
-  next();
-})
+server.use(logger);
 
 server.use('/api/users', router)
 

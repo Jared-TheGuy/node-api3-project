@@ -4,6 +4,7 @@ const express = require('express');
 // The middleware functions also need to be required
 
 const router = express.Router();
+const { validateUserId } = require('../middleware/middleware');
 
 const Users = require('./users-model');
 const Posts = require('../posts/posts-model')
@@ -20,17 +21,8 @@ router.get('/', async(req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
-  
-  try {
-    const user = await Users.getById(req.params.id);
-    res.json(user)
-  }
-  catch (err) {
-    res.status(500).json({
-      message: "You lose"
-    })
-  }
+router.get('/:id', validateUserId, (req, res) => {
+  res.json(req.user);
 });
 
 router.post('/', (req, res) => {
