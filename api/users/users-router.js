@@ -25,9 +25,16 @@ router.get('/:id', validateUserId, (req, res) => {
   res.json(req.user);
 });
 
-router.post('/', (req, res) => {
-  // RETURN THE NEWLY CREATED USER OBJECT
-  // this needs a middleware to check that the request body is valid
+router.post('/', async (req, res) => {
+  try {
+    const user = await Users.insert(req.body)
+    res.status(201).json(user)
+  }
+  catch (err) {
+    res.status(500).json({
+      message: "You lose"
+    })
+  }
 });
 
 router.put('/:id', (req, res) => {
