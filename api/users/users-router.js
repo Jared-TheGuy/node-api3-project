@@ -20,9 +20,17 @@ router.get('/', async(req, res) => {
   }
 });
 
-router.get('/:id', (req, res) => {
-  // RETURN THE USER OBJECT
-  // this needs a middleware to verify user id
+router.get('/:id', async (req, res) => {
+  
+  try {
+    const user = await Users.getById(req.params.id);
+    res.json(user)
+  }
+  catch (err) {
+    res.status(500).json({
+      message: "You lose"
+    })
+  }
 });
 
 router.post('/', (req, res) => {
