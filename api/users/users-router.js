@@ -5,8 +5,11 @@ const express = require('express');
 
 const router = express.Router();
 
+const Users = require('./users-model');
+const Posts = require('../posts/posts-model')
+
 router.get('/', (req, res) => {
-  // RETURN AN ARRAY WITH ALL THE USERS
+
 });
 
 router.get('/:id', (req, res) => {
@@ -41,4 +44,4 @@ router.post('/:id/posts', (req, res) => {
   // and another middleware to check that the request body is valid
 });
 
-// do not forget to export the router
+module.exports = router;
