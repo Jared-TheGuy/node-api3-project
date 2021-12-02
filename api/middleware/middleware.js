@@ -20,14 +20,12 @@ async function validateUserId(req, res, next) {
       next();
     }
     else {
-      res.status(500).json({
-        message: "You failed validateUserId"
-      })
+      res.status(404).json({ message: "user not found" })
     }
   }
   catch (err)  {
     res.status(500).json({
-      message: "You failed validateUserId"
+      message: "You"
     })
   }
   }
@@ -38,14 +36,21 @@ function validateUser(req, res, next) {
     next()
   }
   else {
-    res.status(500).json({
-      message: "You failed validateUser"
-    })
+    res.status(400).json({ message: "missing required name field" })
   }
 
 }
 
 function validatePost(req, res, next) {
+  const { text } = req.body  
+  if(!text || !text.trim()){
+    res.status(400).json({
+      message: 'missing required text field'
+    })
+  }else{
+    req.text = text.trim()
+    next()
+  }
   
 }
 
@@ -53,4 +58,5 @@ module.exports = {
   logger,
   validateUserId,
   validateUser,
+  validatePost
 }
