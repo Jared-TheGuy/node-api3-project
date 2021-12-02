@@ -21,27 +21,36 @@ async function validateUserId(req, res, next) {
     }
     else {
       res.status(500).json({
-        message: "thing"
+        message: "You failed validateUserId"
       })
     }
   }
   catch (err)  {
     res.status(500).json({
-      message: "Thing"
+      message: "You failed validateUserId"
     })
   }
   }
   
 
 function validateUser(req, res, next) {
-  // DO YOUR MAGIC
+  if (req.body.name) {
+    next()
+  }
+  else {
+    res.status(500).json({
+      message: "You failed validateUser"
+    })
+  }
+
 }
 
 function validatePost(req, res, next) {
-  // DO YOUR MAGIC
+  
 }
 
 module.exports = {
   logger,
   validateUserId,
+  validateUser,
 }
